@@ -23,9 +23,9 @@ jobs:
         id: setup-velero
         run:
           curl -L -o /tmp/velero.tar.gz https://github.com/vmware-tanzu/velero/releases/download/v1.8.1/velero-v1.8.1-linux-amd64.tar.gz 
-          tar -C /tmp -xvf /tmp/velero.tar.gz
-          mv /tmp/velero-v1.5.1-linux-amd64/velero /usr/local/bin/velero
-          chmod +x /usr/local/bin/velero
-          velero --help
-          which velero
+#           tar -C /tmp -xvf /tmp/velero.tar.gz
+#           mv /tmp/velero-v1.5.1-linux-amd64/velero /usr/local/bin/velero
+#           chmod +x /usr/local/bin/velero
+#           velero --help
+#           which velero
           
