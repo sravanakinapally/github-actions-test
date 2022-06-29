@@ -39,13 +39,13 @@ jobs:
           #which velero
           if [[ ${{ github.event.inputs.targetEnvironment }} == 'non-prod' ]]; then
                AZURE_STORAGE_ACCOUNT_ID="dxnpbkp9e6ede67dc48"
-               cat << EOF > credentials-velero
+               cat <<- EOF > credentials-velero
                AZURE_STORAGE_ACCOUNT_ACCESS_KEY="nonprodkey"
                AZURE_CLOUD_NAME=AzurePublicCloud
                EOF
           else
                AZURE_STORAGE_ACCOUNT_ID="dxpbkpfe81d0f94195"
-               cat << EOF > credentials-velero
+               cat <<- EOF > credentials-velero
                AZURE_STORAGE_ACCOUNT_ACCESS_KEY="prodkey"
                AZURE_CLOUD_NAME=AzurePublicCloud
                EOF
