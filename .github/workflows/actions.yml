@@ -29,7 +29,7 @@ jobs:
 
       - name: set up velero
         id: setup-velero
-        run: |-
+        run: |
           #curl -L -o /tmp/velero.tar.gz https://github.com/vmware-tanzu/velero/releases/download/v1.8.1/velero-v1.8.1-linux-amd64.tar.gz 
           #ls -ltr /tmp
           #tar -C /tmp -xvf /tmp/velero.tar.gz
@@ -39,16 +39,16 @@ jobs:
           #which velero
           if [[ ${{ github.event.inputs.targetEnvironment }} == 'non-prod' ]]; then
                AZURE_STORAGE_ACCOUNT_ID="dxnpbkp9e6ede67dc48"
-               cat <<EOF > ./credentials-velero
+               cat <<`EOF > ./credentials-velero
                AZURE_STORAGE_ACCOUNT_ACCESS_KEY="nonprodkey"
                AZURE_CLOUD_NAME=AzurePublicCloud
-               EOF
+               EOF`
           else
                AZURE_STORAGE_ACCOUNT_ID="dxpbkpfe81d0f94195"
-               cat <<EOF > ./credentials-velero
+               cat <<`EOF > ./credentials-velero
                AZURE_STORAGE_ACCOUNT_ACCESS_KEY="prodkey"
                AZURE_CLOUD_NAME=AzurePublicCloud
-               EOF
+               EOF`
           fi
           echo $AZURE_STORAGE_ACCOUNT_ID
           cat credentials-velero
