@@ -1,5 +1,13 @@
 on:
   workflow_dispatch:
+    inputs:
+      targetEnvironment:
+        description: "Environment"
+        required: true
+        type: choice
+        options: 
+        - non-prod
+        - prod
 
 name: velero testing 
 env:
@@ -21,12 +29,27 @@ jobs:
 
       - name: set up velero
         id: setup-velero
-        run: |
-          curl -L -o /tmp/velero.tar.gz https://github.com/vmware-tanzu/velero/releases/download/v1.8.1/velero-v1.8.1-linux-amd64.tar.gz 
-          ls -ltr /tmp
-          tar -C /tmp -xvf /tmp/velero.tar.gz
-          mv /tmp/velero-v1.8.1-linux-amd64/velero /usr/local/bin/velero
-          chmod +x /usr/local/bin/velero
-          velero --help
-          which velero
+        run: |-
+          #curl -L -o /tmp/velero.tar.gz https://github.com/vmware-tanzu/velero/releases/download/v1.8.1/velero-v1.8.1-linux-amd64.tar.gz 
+          #ls -ltr /tmp
+          #tar -C /tmp -xvf /tmp/velero.tar.gz
+          #mv /tmp/velero-v1.8.1-linux-amd64/velero /usr/local/bin/velero
+          #chmod +x /usr/local/bin/velero
+          #velero --help
+          #which velero
+          if [[ ${{ github.event.inputs.targetEnvironment }} == 'non-prod' ]]; then
+               AZURE_STORAGE_ACCOUNT_ID="dxnpbkp9e6ede67dc48"
+               cat <<EOF > ./credentials-velero
+               AZURE_STORAGE_ACCOUNT_ACCESS_KEY="nonprodkey"
+               AZURE_CLOUD_NAME=AzurePublicCloud
+               EOF
+          else
+               AZURE_STORAGE_ACCOUNT_ID="dxpbkpfe81d0f94195"
+               cat <<EOF > ./credentials-velero
+               AZURE_STORAGE_ACCOUNT_ACCESS_KEY="prodkey"
+               AZURE_CLOUD_NAME=AzurePublicCloud
+               EOF
+          fi
+          echo $AZURE_STORAGE_ACCOUNT_ID
+          cat credentials-velero
           
