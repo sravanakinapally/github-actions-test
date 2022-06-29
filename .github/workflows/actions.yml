@@ -50,6 +50,7 @@ jobs:
                AZURE_CLOUD_NAME=AzurePublicCloud
                EOF
           fi
-          echo $AZURE_STORAGE_ACCOUNT_ID
-          cat credentials-velero
+          
+          #echo $AZURE_STORAGE_ACCOUNT_ID
+          #cat credentials-velero
           
